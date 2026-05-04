@@ -1,13 +1,13 @@
-import SiteHeader from "@/components/water/SiteHeader";
-import HeroSection from "@/components/water/HeroSection";
-import ContentSections from "@/components/water/ContentSections";
+import AppleHeader from "@/components/water/AppleHeader";
+import AppleHero from "@/components/water/AppleHero";
+import AppleContent from "@/components/water/AppleContent";
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "'Golos Text', system-ui, sans-serif", color: "#1A2332" }}>
-      <SiteHeader />
-      <HeroSection />
-      <ContentSections />
+    <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
+      <AppleHeader />
+      <AppleHero />
+      <AppleContent />
     </div>
   );
 }

@@ -14,7 +14,7 @@ export default {
     container: { center: true, padding: '2rem', screens: { '2xl': '1400px' } },
     extend: {
       fontFamily: {
-        golos: ['Golos Text', 'system-ui', 'sans-serif'],
+        inter: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -39,13 +39,6 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
         },
-        brand: {
-          blue: '#0077CC',
-          dark: '#005FA3',
-          light: '#E8F4FD',
-          navy: '#0D1B2A',
-          gray: '#F7F9FC',
-        }
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -55,17 +48,10 @@ export default {
       keyframes: {
         'accordion-down': { from: { height: '0' }, to: { height: 'var(--radix-accordion-content-height)' } },
         'accordion-up': { from: { height: 'var(--radix-accordion-content-height)' }, to: { height: '0' } },
-        'fade-up': { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
-        'pulse-ring': {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(37,211,102,0.4)' },
-          '50%': { boxShadow: '0 0 0 8px rgba(37,211,102,0)' }
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-up': 'fade-up 0.6s ease-out forwards',
-        'pulse-ring': 'pulse-ring 2s ease-in-out infinite',
       }
     }
   },
