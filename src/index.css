@@ -10,7 +10,7 @@
     --card-foreground: 215 25% 12%;
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 12%;
-    --primary: 211 90% 42%;
+    --primary: 211 100% 40%;
     --primary-foreground: 0 0% 100%;
     --secondary: 210 20% 96%;
     --secondary-foreground: 215 25% 12%;
@@ -22,7 +22,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 214 20% 90%;
     --input: 214 20% 90%;
-    --ring: 211 90% 42%;
+    --ring: 211 100% 40%;
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
@@ -33,16 +33,6 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-
-    --brand-blue: #0077cc;
-    --brand-blue-dark: #005fa3;
-    --brand-blue-light: #e8f4fd;
-    --brand-navy: #0d1b2a;
-    --brand-gray: #f7f9fc;
-    --brand-text: #1a2332;
-    --brand-muted: #64748b;
-    --brand-green: #16a34a;
-    --brand-orange: #ea580c;
   }
 }
 
@@ -55,123 +45,14 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-white;
-    font-family: "Golos Text", system-ui, sans-serif;
-    color: var(--brand-text);
-    overflow-x: hidden;
+    @apply bg-white text-foreground;
+    font-family:
+      "Golos Text",
+      system-ui,
+      -apple-system,
+      sans-serif;
     -webkit-font-smoothing: antialiased;
-  }
-}
-
-@layer components {
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: var(--brand-blue);
-    color: white;
-    font-weight: 600;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .btn-primary:hover {
-    background: var(--brand-blue-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(0, 119, 204, 0.35);
-  }
-
-  .btn-whatsapp {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: #25d366;
-    color: white;
-    font-weight: 600;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .btn-whatsapp:hover {
-    background: #1db954;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
-  }
-
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: white;
-    color: var(--brand-blue);
-    font-weight: 600;
-    border-radius: 12px;
-    border: 2px solid var(--brand-blue);
-    transition: all 0.2s ease;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .btn-outline:hover {
-    background: var(--brand-blue-light);
-    transform: translateY(-1px);
-  }
-
-  .section-fade {
-    opacity: 0;
-    transform: translateY(24px);
-    transition:
-      opacity 0.7s ease,
-      transform 0.7s ease;
-  }
-  .section-fade.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .card-service {
-    background: white;
-    border: 1px solid #e8eff7;
-    border-radius: 16px;
-    transition: all 0.25s ease;
-  }
-  .card-service:hover {
-    border-color: var(--brand-blue);
-    box-shadow: 0 12px 40px rgba(0, 119, 204, 0.1);
-    transform: translateY(-4px);
-  }
-
-  .price-card {
-    background: white;
-    border: 2px solid #e8eff7;
-    border-radius: 16px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-  }
-  .price-card:hover,
-  .price-card.active {
-    border-color: var(--brand-blue);
-    box-shadow: 0 0 0 4px rgba(0, 119, 204, 0.08);
-  }
-
-  .step-num {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--brand-blue);
-    color: white;
-    font-size: 17px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    overflow-x: hidden;
   }
 }
 
@@ -184,4 +65,7 @@
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
