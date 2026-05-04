@@ -111,31 +111,135 @@ function VolumesSection() {
 }
 
 // ── 2. Services ───────────────────────────────────────────────────────────────
-const SERVICES: ServiceItem[] = [
-  { title: "Доставка воды на дом", desc: "19-литровые бутыли с питьевой водой — для домашнего кулера или приготовления пищи. Без минимального заказа.", kw: "вода на дом Новороссийск" },
-  { title: "Доставка воды в офис", desc: "Регулярные поставки питьевой воды для офисных кулеров. Заключаем договор, выставляем счёт.", kw: "вода в офис" },
-  { title: "Срочная доставка воды", desc: "Выезд в течение 1–3 часов по Новороссийску и пригородам. Работаем круглосуточно.", kw: "срочная доставка воды" },
-  { title: "Доставка воды 19 литров", desc: "Стандартные бутыли для любых кулеров. Тара в аренду или выкуп. Приём пустой тары при доставке.", kw: "доставка воды 19 литров" },
+const SERVICES: (ServiceItem & { icon: string; tag?: string; tagColor?: string })[] = [
+  {
+    icon: "Home",
+    title: "Доставка воды на дом",
+    desc: "19-литровые бутыли с питьевой водой — для домашнего кулера или приготовления пищи. Без минимального заказа.",
+    kw: "вода на дом Новороссийск",
+  },
+  {
+    icon: "Building2",
+    title: "Доставка воды в офис",
+    desc: "Регулярные поставки питьевой воды для офисных кулеров. Заключаем договор, выставляем счёт.",
+    kw: "вода в офис",
+  },
+  {
+    icon: "Zap",
+    title: "Срочная доставка воды",
+    desc: "Выезд в течение 1–3 часов по Новороссийску и пригородам. Работаем круглосуточно.",
+    kw: "срочная доставка воды",
+    tag: "Срочно",
+    tagColor: "#DC2626",
+  },
+  {
+    icon: "Droplets",
+    title: "Доставка воды 19 литров",
+    desc: "Стандартные бутыли для любых кулеров. Тара в аренду или выкуп. Приём пустой тары при доставке.",
+    kw: "доставка воды 19 литров",
+  },
+  {
+    icon: "HardHat",
+    title: "Вода для строек и бизнеса",
+    desc: "Технические объёмы 7,5 м³ и 10 м³ для строительных площадок, предприятий, складов.",
+    kw: "техническая вода Новороссийск",
+  },
+  {
+    icon: "Waves",
+    title: "Наполнение бассейнов",
+    desc: "Быстрое наполнение частных и коммерческих бассейнов. Рассчитаем нужный объём бесплатно.",
+    kw: "наполнение бассейнов водой",
+  },
 ];
 
-function ServiceRow({ s, delay }: { s: ServiceItem; delay: number }) {
+function ServiceCard({ s, delay }: { s: typeof SERVICES[0]; delay: number }) {
   const f = useFade(delay);
   return (
-    <div ref={f.ref} style={f.style} className="service-item">
-      <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.025em", color: "var(--ink)", marginBottom: 6 }}>
+    <div
+      ref={f.ref}
+      style={{
+        ...f.style,
+        background: "white",
+        border: "1px solid #EAECF0",
+        borderRadius: 16,
+        padding: "24px",
+        transition: `${f.style.transition}, box-shadow 0.2s ease, border-color 0.2s ease`,
+        cursor: "default",
+      }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px rgba(0,0,0,0.08)";
+        (e.currentTarget as HTMLDivElement).style.borderColor = "#D1D5DB";
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+        (e.currentTarget as HTMLDivElement).style.borderColor = "#EAECF0";
+      }}
+    >
+      {/* Icon + tag row */}
+      <div className="flex items-start justify-between mb-4">
+        <div
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: 12,
+            background: "#F0F4FF",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <Icon name={s.icon} size={21} style={{ color: "#0071E3" }} />
+        </div>
+        {s.tag && (
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              padding: "4px 9px",
+              borderRadius: 100,
+              background: "#FEF2F2",
+              color: s.tagColor,
+              border: "1px solid #FECACA",
+              letterSpacing: "0.02em",
+            }}
+          >
+            {s.tag}
+          </span>
+        )}
+      </div>
+
+      {/* Text */}
+      <h3
+        style={{
+          fontSize: 16,
+          fontWeight: 600,
+          letterSpacing: "-0.025em",
+          color: "var(--ink)",
+          marginBottom: 8,
+          lineHeight: 1.3,
+        }}
+      >
         {s.title}
       </h3>
-      <p className="t-small" style={{ lineHeight: 1.6 }}>{s.desc}</p>
+      <p style={{ fontSize: 14, lineHeight: 1.65, color: "var(--ink-secondary)" }}>{s.desc}</p>
     </div>
   );
 }
 
 function ServicesSection() {
   return (
-    <Section id="services">
+    <Section id="services" bg="#F9FAFB">
       <SectionHeader label="Услуги" title="Что мы доставляем" />
-      <div className="grid md:grid-cols-2 gap-x-12">
-        {SERVICES.map((s, i) => <ServiceRow key={s.title} s={s} delay={i * 70} />)}
+
+      {/* Desktop & Mobile: responsive grid — 2 cols on md, 1 on mobile */}
+      <div
+        className="grid gap-4"
+        style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))" }}
+      >
+        {SERVICES.map((s, i) => (
+          <ServiceCard key={s.title} s={s} delay={i * 60} />
+        ))}
       </div>
     </Section>
   );
