@@ -327,11 +327,24 @@ function StepCard({ s, i, delay }: { s: typeof STEPS[0]; i: number; delay: numbe
         overflow: "hidden",
       }}
     >
-      <div style={{ position: "absolute", top: -10, right: 16, fontSize: 80, fontWeight: 800, letterSpacing: "-0.05em", color: accent ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.04)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>
-        {s.num}
-      </div>
-      <div style={{ width: 48, height: 48, borderRadius: 14, background: accent ? "rgba(255,255,255,0.15)" : "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-        <Icon name={s.icon} size={22} style={{ color: accent ? "white" : "#0071E3" }} />
+      {/* Num + icon row */}
+      <div className="flex items-center justify-between mb-5">
+        <div
+          style={{
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: "0.08em",
+            color: accent ? "rgba(255,255,255,0.55)" : "#0071E3",
+            background: accent ? "rgba(255,255,255,0.15)" : "#EFF6FF",
+            borderRadius: 100,
+            padding: "5px 12px",
+          }}
+        >
+          {s.num}
+        </div>
+        <div style={{ width: 44, height: 44, borderRadius: 14, background: accent ? "rgba(255,255,255,0.15)" : "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Icon name={s.icon} size={21} style={{ color: accent ? "white" : "#0071E3" }} />
+        </div>
       </div>
       <h3 style={{ fontSize: 17, fontWeight: 700, letterSpacing: "-0.03em", color: accent ? "white" : "var(--ink)", marginBottom: 10, lineHeight: 1.25 }}>
         {s.title}
