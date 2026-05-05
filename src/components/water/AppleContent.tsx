@@ -289,33 +289,144 @@ function PricingSection() {
   );
 }
 
-// ── 4. Why ────────────────────────────────────────────────────────────────────
-const WHY_ITEMS: WhyItem[] = [
-  { num: "01", title: "Быстрая доставка",  desc: "1–3 часа по Новороссийску. Экстренный выезд — в течение часа." },
-  { num: "02", title: "Чистая вода",       desc: "Соответствие СанПиН. Сертификаты качества прилагаются по запросу." },
-  { num: "03", title: "Местный сервис",    desc: "15 лет работы в Новороссийске. Собственный транспорт, без посредников." },
-  { num: "04", title: "Прозрачные цены",   desc: "Цена при заказе — финальная. Никаких скрытых платежей и сюрпризов." },
+// ── 4. How it works (3 steps) ─────────────────────────────────────────────────
+const STEPS = [
+  {
+    num: "01",
+    icon: "MessageCircle",
+    title: "Оставьте заявку",
+    desc: "Напишите в WhatsApp или позвоните. Скажите адрес и нужный объём — рассчитаем стоимость за минуту.",
+  },
+  {
+    num: "02",
+    icon: "Truck",
+    title: "Водовоз выедет",
+    desc: "Подтверждаем время выезда. В большинстве случаев доставляем в течение 1–3 часов.",
+  },
+  {
+    num: "03",
+    icon: "Droplets",
+    title: "Вода на объекте",
+    desc: "Водитель сливает воду в вашу ёмкость. Оплата после доставки — наличными или картой.",
+  },
 ];
 
-function WhyCard({ w, delay }: { w: WhyItem; delay: number }) {
+function StepCard({ s, i, delay }: { s: typeof STEPS[0]; i: number; delay: number }) {
+  const f = useFade(delay);
+  const accent = i === 1;
+  return (
+    <div
+      ref={f.ref}
+      style={{
+        ...f.style,
+        background: accent ? "#0071E3" : "#F9FAFB",
+        border: accent ? "none" : "1px solid #EAECF0",
+        borderRadius: 20,
+        padding: "28px 24px",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div style={{ position: "absolute", top: -10, right: 16, fontSize: 80, fontWeight: 800, letterSpacing: "-0.05em", color: accent ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.04)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>
+        {s.num}
+      </div>
+      <div style={{ width: 48, height: 48, borderRadius: 14, background: accent ? "rgba(255,255,255,0.15)" : "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+        <Icon name={s.icon} size={22} style={{ color: accent ? "white" : "#0071E3" }} />
+      </div>
+      <h3 style={{ fontSize: 17, fontWeight: 700, letterSpacing: "-0.03em", color: accent ? "white" : "var(--ink)", marginBottom: 10, lineHeight: 1.25 }}>
+        {s.title}
+      </h3>
+      <p style={{ fontSize: 14, lineHeight: 1.65, color: accent ? "rgba(255,255,255,0.75)" : "var(--ink-secondary)" }}>
+        {s.desc}
+      </p>
+    </div>
+  );
+}
+
+function HowSection() {
+  return (
+    <Section id="how" bg="#fff">
+      <SectionHeader label="Как это работает" title={<>Три шага до<br />воды на объекте</>} />
+
+      {/* Desktop: 3 cols / Mobile: single column cards */}
+      <div className="grid md:grid-cols-3 gap-4">
+        {STEPS.map((s, i) => <StepCard key={s.num} s={s} i={i} delay={i * 80} />)}
+      </div>
+
+      {/* Mobile CTA after steps */}
+      <div className="md:hidden mt-6">
+        <a
+          href={WA_LINK} target="_blank" rel="noopener"
+          className="flex items-center justify-center gap-2 w-full"
+          style={{
+            background: "#0071E3",
+            color: "white",
+            fontSize: 16,
+            fontWeight: 600,
+            padding: "17px 24px",
+            borderRadius: 16,
+            textDecoration: "none",
+            letterSpacing: "-0.01em",
+          }}
+        >
+          <Icon name="MessageCircle" size={19} />
+          Заказать водовоз
+        </a>
+      </div>
+    </Section>
+  );
+}
+
+// ── 5. Why ────────────────────────────────────────────────────────────────────
+const WHY_ITEMS = [
+  { icon: "Timer",        title: "1–3 часа доставка",      desc: "Выезжаем в течение часа. Экстренный выезд — без доплат.", color: "#EFF6FF", iconColor: "#0071E3" },
+  { icon: "Truck",        title: "Собственный транспорт",  desc: "Свои водовозы — без посредников и накруток. Несём ответственность сами.", color: "#F0FDF4", iconColor: "#16A34A" },
+  { icon: "Gauge",        title: "От 7,5 м³ за рейс",      desc: "Большие объёмы за один приезд. Организуем несколько рейсов подряд.", color: "#FFF7ED", iconColor: "#EA580C" },
+  { icon: "ShieldCheck",  title: "Чистая вода",             desc: "Качество воды подтверждено сертификатами. Соответствие СанПиН.", color: "#F5F3FF", iconColor: "#7C3AED" },
+  { icon: "MapPin",       title: "Весь Новороссийск",       desc: "15 лет работы в городе и пригородах. Знаем каждый район.", color: "#FFF1F2", iconColor: "#E11D48" },
+  { icon: "Receipt",      title: "Прозрачные цены",         desc: "Цена при заказе — финальная. Оплата после доставки.", color: "#F0F9FF", iconColor: "#0284C7" },
+];
+
+function WhyCard({ w, delay }: { w: typeof WHY_ITEMS[0]; delay: number }) {
   const f = useFade(delay);
   return (
-    <div ref={f.ref} style={f.style} className="why-card">
-      <div className="t-label mb-3">{w.num}</div>
-      <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.025em", color: "var(--ink)", marginBottom: 8 }}>
-        {w.title}
-      </h3>
-      <p className="t-small" style={{ lineHeight: 1.65 }}>{w.desc}</p>
+    <div
+      ref={f.ref}
+      style={{
+        ...f.style,
+        background: "white",
+        border: "1px solid #EAECF0",
+        borderRadius: 16,
+        padding: "20px",
+        display: "flex",
+        gap: 14,
+        alignItems: "flex-start",
+      }}
+    >
+      <div style={{ width: 42, height: 42, borderRadius: 12, background: w.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
+        <Icon name={w.icon} size={20} style={{ color: w.iconColor }} />
+      </div>
+      <div>
+        <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: "-0.025em", color: "var(--ink)", marginBottom: 5, lineHeight: 1.25 }}>
+          {w.title}
+        </div>
+        <div style={{ fontSize: 13, lineHeight: 1.6, color: "var(--ink-secondary)" }}>
+          {w.desc}
+        </div>
+      </div>
     </div>
   );
 }
 
 function WhySection() {
   return (
-    <Section id="why">
+    <Section id="why" bg="#F9FAFB">
       <SectionHeader label="Преимущества" title="Почему выбирают нас" />
-      <div className="grid md:grid-cols-2 gap-x-12">
-        {WHY_ITEMS.map((w, i) => <WhyCard key={w.num} w={w} delay={i * 70} />)}
+      <div
+        className="grid gap-3"
+        style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))" }}
+      >
+        {WHY_ITEMS.map((w, i) => <WhyCard key={w.title} w={w} delay={i * 60} />)}
       </div>
     </Section>
   );
@@ -435,15 +546,42 @@ function ContactSection() {
           </p>
         </div>
 
-        <div ref={f2.ref} style={f2.style} className="flex flex-col sm:flex-row flex-wrap gap-3 mb-14">
-          <a href={WA_LINK} target="_blank" rel="noopener" className="btn-wa text-base px-8 py-3.5">
-            <Icon name="MessageCircle" size={18} /> Написать в WhatsApp
-          </a>
-          <a href={PHONE_HREF}
-            className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-base font-medium text-white transition-all hover:bg-white/10"
-            style={{ border: "1.5px solid rgba(255,255,255,0.25)", letterSpacing: "-0.01em" }}>
-            <Icon name="Phone" size={16} /> {PHONE}
-          </a>
+        <div ref={f2.ref} style={f2.style} className="mb-14">
+          {/* Mobile: full-width stacked / Desktop: inline row */}
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+            <a
+              href={WA_LINK} target="_blank" rel="noopener"
+              className="btn-wa sm:w-auto w-full justify-center"
+              style={{ fontSize: 16, padding: "17px 32px", borderRadius: 16 }}
+            >
+              <Icon name="MessageCircle" size={19} /> Написать в WhatsApp
+            </a>
+            <a
+              href={PHONE_HREF}
+              className="flex items-center justify-center gap-2 sm:w-auto w-full transition-all hover:bg-white/10"
+              style={{
+                fontSize: 16,
+                fontWeight: 600,
+                padding: "16px 28px",
+                borderRadius: 16,
+                border: "1.5px solid rgba(255,255,255,0.25)",
+                color: "white",
+                textDecoration: "none",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              <Icon name="Phone" size={18} /> {PHONE}
+            </a>
+          </div>
+
+          {/* Mobile only: объём-подсказка */}
+          <div
+            className="md:hidden mt-4 flex items-center gap-2 justify-center"
+            style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}
+          >
+            <Icon name="Info" size={13} />
+            Минимальный объём — 7,5 м³ (7 500 литров)
+          </div>
         </div>
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pt-8"
@@ -480,8 +618,9 @@ export default function AppleContent() {
     <>
       <VolumesSection />
       <ServicesSection />
-      <PricingSection />
+      <HowSection />
       <WhySection />
+      <PricingSection />
       <AreaSection />
       <FaqSection />
       <ContactSection />
